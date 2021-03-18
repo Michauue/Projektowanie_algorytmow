@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+#to będzie do poprawy
+
 N = 200  # N x K wymiary planszy
 K = 200
 D = 10  # odległość między rysowanymi punktami
