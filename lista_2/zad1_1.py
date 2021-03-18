@@ -42,7 +42,7 @@ def fun3(n):
     return equation
 
 
-print('Ile wyrazów wypisać?')   #pobranie od użytkownika ile wyrazów ciągu wypisać
+print('Ile wyrazów mam wypisać?')   #pobranie od użytkownika ile wyrazów ciągu wypisać
 n = int(input())
 
 print("\nCiąg pierwszy:\n")     #ciąg pierwszy
