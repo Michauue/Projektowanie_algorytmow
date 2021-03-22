@@ -49,7 +49,6 @@ def fast_draw():
     nx.draw_networkx_edges(g, v_pos)
     nx.draw_networkx_edge_labels(g, v_pos, edge_labels=labels)
     plt.show()
-    print('test')
 
 
 def slow_draw():
