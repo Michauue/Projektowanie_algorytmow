@@ -9,8 +9,8 @@ def rand_position():
     return [random.randint(0, 100), random.randint(0, 100)]
 
 
-def graph(num):
-    for i in range(1, num + 1):
+def graph(n):
+    for i in range(1, n + 1):
         V.append(i)
         v_pos[i] = rand_position()
 
