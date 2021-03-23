@@ -139,6 +139,7 @@ max_neigh = 4
 gallery = rand_graph(num, min_neigh, max_neigh)
 L = ['a', 'b', 'c', 'd']
 
+
 usl(gallery.nodes())
 print(gallery.gdict)
 gallery.draw_graph()
