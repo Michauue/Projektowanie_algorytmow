@@ -24,7 +24,7 @@ def fun2(n):
     return int(equation)
 
 
-def fun2_2(n):
+def fun2_2(n):                                     #analitycznie druga funkcja
     if n % 2 == 0:
         equation = (1/2)*n*(1/2)*(n+2)
     else:
@@ -44,7 +44,7 @@ def fun3(n):
     return int(equation)
 
 
-def fun3_2(n):
+def fun3_2(n):                                                                              #analitycznie trzecia funkcja
     equation = (1/sqrt(5))*pow(((1+sqrt(5))/(2)),n) - (1/sqrt(5))*pow(((1-sqrt(5))/(2)),n)
 
     return int(equation)
