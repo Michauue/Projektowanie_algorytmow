@@ -54,7 +54,7 @@ def fast_draw():
 def slow_draw():
     for x in V:
         g.add_node(x)
-        nx.draw_networkx_nodes(g, v_pos, node_size=600)
+        nx.draw_networkx_nodes(g, v_pos, node_size=600, node_color='pink')
         nx.draw_networkx_labels(g, v_pos)
         plt.draw()
         plt.pause(0.1)
@@ -64,7 +64,7 @@ def slow_draw():
     for y in E:
         temp_labels[y] = labels[y]
         g.add_edge(*y)
-        nx.draw_networkx_nodes(g, v_pos, node_size=600)
+        nx.draw_networkx_nodes(g, v_pos, node_size=600, node_color='pink')
         nx.draw_networkx_labels(g, v_pos)
         nx.draw_networkx_edges(g, v_pos)
         nx.draw_networkx_edge_labels(g, v_pos, edge_labels=temp_labels)
@@ -84,5 +84,5 @@ num = 20
 graph(num)
 spanning_tree()
 g = nx.Graph()
-slow_draw()  #rysowanie krok po kroku
-#fast_draw() #rysowanie szybkie
+#slow_draw()  #rysowanie krok po kroku
+fast_draw() #rysowanie szybkie
