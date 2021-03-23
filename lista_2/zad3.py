@@ -144,7 +144,7 @@ graph_elements = {1: [[2, 3, 4, 5, 6, 7], [0, 10]],
                   9: [[6, 8], [0, 0]],
                   }
 
-random.seed(254295)
+random.seed(254279)
 num = 10
 min_neigh = 1
 max_neigh = 3
