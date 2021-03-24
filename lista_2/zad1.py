@@ -1,5 +1,6 @@
 from math import sqrt
 
+
 def fun1(n):
     if n == 0:
         return 0
