@@ -28,28 +28,26 @@ def plot_holes(N, K, D, b):
         for p in range(int(N / D) + 1):
             if (D * d, D * p) in b:
                 if b[(D * d, D * p)]:
-                    plt.plot([D * d], [D * p], 'ro')
+                    plt.plot([D * d], [D * p], 'rD')
                 else:
-                    plt.plot([D * d], [D * p], 'ko')
-            else:
-                print("Brak wierzchołka")
+                    plt.plot([D * d], [D * p], 'c*')
     plt.show()
 
 
 def boreholes(S, R, all_b):
-    not_used_b = copy.copy(all_b)
+    not_used_borehole = copy.copy(all_b)
     used_b = [(0, 0)]
-    not_used_b.pop((0, 0))
+    not_used_borehole.pop((0, 0))
     all_b[0, 0] = True
     counter = 1
     for x in range(R - 1):
-        if not_used_b:
-            h = max_dist(not_used_b.keys(), used_b, S)
+        if not_used_borehole:
+            h = max_dist(not_used_borehole.keys(), used_b, S)
             if h == ():
                 break
             used_b.append(h)
             counter += 1
-            not_used_b.pop(h)
+            not_used_borehole.pop(h)
             all_b[h] = True
         else:
             break
@@ -57,10 +55,10 @@ def boreholes(S, R, all_b):
     return all_b
 
 
-def max_dist(not_used_b, used_b, S):
+def max_dist(not_used_borehole, used_b, S):
     temp_min_dist = 0
-    temp_b = ()
-    for x in not_used_b:
+    temp_borehole = ()
+    for x in not_used_borehole:
         temp_dist = []
         control = False
         for z in used_b:
@@ -74,14 +72,14 @@ def max_dist(not_used_b, used_b, S):
         temp_min = np.min(temp_dist)
         if temp_min > temp_min_dist:
             temp_min_dist = temp_min
-            temp_b = x
-    return temp_b
+            temp_borehole = x
+    return temp_borehole
 
 
-N, K = (100, 60)
-D = 4
-S = 5
-R = 160
+N, K = (100, 60)    # rozmiar siatki
+D = 4               # odległość między miejscami w któych możliwy jest odwiert
+S = 8               # minimalna odległość między odwiertami
+R = 60              # maksymalna ilość odwiertów
 all_b = holes(N, K, D)
 b = boreholes(S, R, all_b)
 plot_net(N, K, D)
