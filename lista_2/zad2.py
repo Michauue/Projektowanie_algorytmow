@@ -84,5 +84,5 @@ num = 20
 graph(num)
 spanning_tree()
 g = nx.Graph()
-#slow_draw()  #rysowanie krok po kroku
-fast_draw() #rysowanie szybkie
+slow_draw()  #rysowanie krok po kroku
+#fast_draw() #rysowanie szybkie

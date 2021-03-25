@@ -133,15 +133,12 @@ def dist(v, w, g):
         return [min(counter), counter[min(counter)]]
 
 
-graph_elements = {1: [[2, 3, 4, 5, 6, 7], [0, 10]],
-                  2: [[1, 3, 7], [7, 16]],
-                  3: [[1, 2, 4], [5, 21]],
-                  4: [[1, 3, 5], [1, 3]],
-                  5: [[1, 4, 6], [7, 10]],
-                  6: [[1, 5, 8, 9], [12, 2]],
-                  7: [[1, 2, 8], [15, 15]],
-                  8: [[7, 9], [5, 5]],
-                  9: [[6, 8], [0, 0]],
+graph_elements = {1: [[2, 3, 4], [0, 10]],
+                  2: [[1, 5], [7, 16]],
+                  3: [[1, 5], [12, 10]],
+                  4: [[1, 5], [1, 3]],
+                  5: [[2, 3, 4, 6], [7, 10]],
+                  6: [[5], [12, 2]]
                   }
 
 random.seed(3*254279)
@@ -149,8 +146,8 @@ num = 10
 min_neigh = 1
 max_neigh = 3
 
-g = rand_graph(num, min_neigh, max_neigh)
-# g = graph(graph_elements)
+# g = rand_graph(num, min_neigh, max_neigh)
+g = graph(graph_elements)
 
-print(dist(8, 4, copy.deepcopy(g)))
+print(dist(1, 6, copy.deepcopy(g)))
 g.draw_graph()
