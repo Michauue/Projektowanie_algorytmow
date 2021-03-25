@@ -144,7 +144,7 @@ graph_elements = {1: [[2, 3, 4, 5, 6, 7], [0, 10]],
                   9: [[6, 8], [0, 0]],
                   }
 
-random.seed(254279)
+random.seed(3*254279)
 num = 10
 min_neigh = 1
 max_neigh = 3
@@ -152,7 +152,5 @@ max_neigh = 3
 g = rand_graph(num, min_neigh, max_neigh)
 # g = graph(graph_elements)
 
-
-
-print(dist(8, 1, copy.deepcopy(g)))
+print(dist(8, 4, copy.deepcopy(g)))
 g.draw_graph()

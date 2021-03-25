@@ -35,9 +35,9 @@ def spanning_tree():
     labels[(V[0], V[0])] = 0
     connected = [V[0]]
     for v in V[1:]:
-        e_dist = min_distance(connected, v)
-        E.append((v, e_dist[0]))
-        labels[(v, e_dist[0])] = e_dist[1]
+        dist = min_distance(connected, v)
+        E.append((v, dist[0]))
+        labels[(v, dist[0])] = dist[1]
         connected.append(v)
 
 
