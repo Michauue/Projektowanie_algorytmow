@@ -13,7 +13,11 @@ def czp(p, xd):
     return tab
 
 
+def xd(p):
+    xd = int(math.floor(math.sqrt(p)))
+    return xd
+
 tab = []                                
-p = 213213                              # zadana liczba p
-xd = int(math.floor(math.sqrt(p)))      # pierwiastek z n
+p = 213213      # zadana liczba p
+xd = xd(p)      # pierwiastek z n
 print("Czynniki pierwsze liczby", p, "to:",czp(p, xd))
