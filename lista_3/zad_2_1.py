@@ -1,5 +1,11 @@
 import math
 
+def starter(p,xd):
+    global tab
+    tab = []
+    czp(p,xd)
+    return tab
+
 
 def czp(p, xd):
     if p < 2:
@@ -19,11 +25,21 @@ def xd(p):
     return xd
 
 
+def pczp(a):
+    xd_a = xd(a)
+    tab_a = czp(a,xd_a)
+    return tab_a
+
 def aczp(a,b):
     xd_a = xd(a)
     xd_b = xd(b)
-    tab_a = czp(a,xd_a)
-    tab_b = czp(b,xd_b)
+    tab_a = starter(a,xd_a)
+    tab_b = starter(b,xd_b)
+    # for i in tab_a:
+    #     for j in tab_b:
+    #         if tab_a[i-1] == tab_b[j-1]:
+    #             print("git")
+    return tab_a, tab_b
 
 
 def aeuc(a,b):
@@ -43,8 +59,7 @@ def aeuc(a,b):
     return last_r
 
 
-tab = []
 a = 1560
 b = 124
-print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
+# print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
 print("NWD aczp liczb", a, "i", b, "to:",aczp(a,b))
