@@ -35,11 +35,18 @@ def aczp(a,b):
     xd_b = xd(b)
     tab_a = starter(a,xd_a)
     tab_b = starter(b,xd_b)
-    # for i in tab_a:
-    #     for j in tab_b:
-    #         if tab_a[i-1] == tab_b[j-1]:
-    #             print("git")
-    return tab_a, tab_b
+    len_a = len(tab_a)
+    len_b = len(tab_b)
+    temp_tab = []
+    for i in range(0,len_a):
+        for j in range(0,len_b):
+            if tab_a[i] == tab_b[j]:
+                print("git")
+                temp_tab.append(tab_b[j])
+                tab_b.remove(tab_b[j])
+                len_b -= 1
+                break
+    return tab_a, tab_b, temp_tab
 
 
 def aeuc(a,b):
