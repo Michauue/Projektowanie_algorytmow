@@ -41,12 +41,17 @@ def aczp(a,b):
     for i in range(0,len_a):
         for j in range(0,len_b):
             if tab_a[i] == tab_b[j]:
-                print("git")
                 temp_tab.append(tab_b[j])
                 tab_b.remove(tab_b[j])
                 len_b -= 1
                 break
-    return tab_a, tab_b, temp_tab
+    if not temp_tab:
+            print("Brak wspólnych czynników pierwszych")
+    result = 1
+    for i in range(0,len(temp_tab)):
+        result = result * temp_tab[i]
+        
+    return result
 
 
 def aeuc(a,b):
@@ -66,7 +71,7 @@ def aeuc(a,b):
     return last_r
 
 
-a = 1560
-b = 124
-# print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
+a = 1584
+b = 1620
+print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
 print("NWD aczp liczb", a, "i", b, "to:",aczp(a,b))
