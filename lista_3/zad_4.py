@@ -11,6 +11,16 @@ def signal_create():    # tworzenie sygnału wraz ze sztucznym szumem
     
     return f_clean,f
 
+def f_fourier_transform():
+    n = len(T)
+    f = signal_create()[1]
+    fhat = np.fft.fft(f,n)
+    PSD = fhat * np.conj(fhat) / n
+    frequency = (1/(DT*n)) * np.arange(n)
+    L = np.arange(1,np.floor(n/2),dtype='int')
+
+    return frequency, L, PSD
+
 
 def ploting():
     f_clean,f = signal_create()
@@ -26,16 +36,7 @@ def ploting():
     plt.plot(frequency[L],PSD[L],color='c',label='noisy')
     plt.xlim(frequency[L[0]],frequency[L[-1]])
     plt.show()
-
-def f_fourier_transform():
-    n = len(T)
-    f = signal_create()[1]
-    fhat = np.fft.fft(f,n)
-    PSD = fhat * np.conj(fhat) / n
-    frequency = (1/(DT*n)) * np.arange(n)
-    L = np.arange(1,np.floor(n/2),dtype='int')
-
-    return frequency, L, PSD
+    
 
 DT = 0.001
 T = np.arange(0,1,DT)
