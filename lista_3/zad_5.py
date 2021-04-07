@@ -22,14 +22,14 @@ def f_fourier_transform(): # zastosowanie szybkiej transformaty Fouriera (FFT)
     return frequency, L, PSD, fhat
 
 
-def noise_filter():
+def noise_filter():     # odfiltrowanie szumów
     PSD, fhat = f_fourier_transform()[2:4]
     indices = PSD > 100
     PSDClean = PSD * indices
     fhat = indices * fhat
     inv_filtered = np.fft.ifft(fhat)
 
-    return inv_filtered
+    return inv_filtered, PSDClean
 
 
 def ploting(): # generowanie wykresów
@@ -38,7 +38,7 @@ def ploting(): # generowanie wykresów
 
     f_clean,f = signal_create()
     frequency, L, PSD = f_fourier_transform()[0:3]
-    inv_filtered = noise_filter()
+    inv_filtered, PSDClean = noise_filter()
 
     fig,axs = plt.subplots(3,1)
 
@@ -48,14 +48,22 @@ def ploting(): # generowanie wykresów
     plt.plot(T,f,color='c',label='noise')
     plt.plot(T,f_clean, color='r',label='clean')
     plt.xlim(T[0],T[-1])
-    plt.legend()
+    plt.legend(loc=1)
 
     # wykres odfiltrowanego sygnału
 
     plt.sca(axs[1])
-    plt.plot(T,inv_filtered,color='r',label='filtered')
+    plt.plot(T,inv_filtered,color='r',linewidth=2,label='filtered')
     plt.xlim(T[0],T[-1])
-    plt.legend()
+    plt.legend(loc=1)
+    
+    # wykres odfiltrowanych częstotliwości
+
+    plt.sca(axs[2])
+    plt.plot(frequency[L],PSD[L],color='c',linewidth=2,label='noise')
+    plt.plot(frequency[L],PSDClean[L],color='r',label='filtered')
+    plt.xlim(frequency[L[0]],frequency[L[-1]])
+    plt.legend(loc=1)
     plt.show()
 
 
