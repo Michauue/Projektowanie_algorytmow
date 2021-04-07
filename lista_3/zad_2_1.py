@@ -62,6 +62,6 @@ def aeuc(x, y):
 
 
 a = 1584
-b = 5
+b = 1620
 print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
 print("NWD aczp liczb", a, "i", b, "to:",aczp(a,b))
