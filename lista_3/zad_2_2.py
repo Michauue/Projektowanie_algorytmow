@@ -76,7 +76,7 @@ def time_testing(indeks_merge):
     timelist_aeuc = []
     start = timer()
     i = 1
-    while timer() - start < 5:
+    while timer() - start < 300:
         start_aczp = timer()
         aczp(indeks_merge, i)
         timelist_aczp.append(timer() - start_aczp)
@@ -91,12 +91,14 @@ def time_testing(indeks_merge):
 def plot_timetable(timelist_aczp, timelist_aeuc):
     plt.subplot(2, 1, 1)
     plt.plot(timelist_aczp, color='r')
+    plt.ylim(0,0.001)
     plt.subplot(2, 1, 2)
     plt.plot(timelist_aeuc, color='c')
+    plt.ylim(0,0.001)
     plt.show()
 
 
 indeks1 = [2, 5, 4, 2, 7, 9]
-indeks2 = [2, 5, 4, 2, 7, 9]
+indeks2 = [2, 5, 4, 3, 0, 5]
 timelist_aczp, timelist_aeuc = time_testing(indeks_merge(indeks1, indeks2))
 plot_timetable(timelist_aczp, timelist_aeuc)
