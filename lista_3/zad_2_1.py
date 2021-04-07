@@ -54,24 +54,14 @@ def aczp(a,b):
     return result
 
 
-def aeuc(a,b):
-    r = 1
-    if a == b or b == 0:
-        return a
-    elif a < b:
-        temp = a
-        a = b
-        b = temp
-    while r !=0:
-         r = a % b
-         a = b
-         b = r
-         if r != 0:
-            last_r = r
-    return last_r
+def aeuc(x, y):
+    if y == 0:
+        return x
+    else:
+        return aeuc(y, x % y)
 
 
 a = 1584
-b = 1620
+b = 5
 print("NWD aeuc liczb", a, "i", b, "to:",aeuc(a,b))
 print("NWD aczp liczb", a, "i", b, "to:",aczp(a,b))
