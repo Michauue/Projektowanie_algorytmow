@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from timeit import default_timer as timer
+import time
 import matplotlib.pyplot as plt
 
 
@@ -74,27 +75,44 @@ def indeks_merge(a, b):
 def time_testing(indeks_merge):
     timelist_aczp = []
     timelist_aeuc = []
-    start = timer()
-    i = 1
-    while timer() - start < 300:
-        start_aczp = timer()
-        aczp(indeks_merge, i)
-        timelist_aczp.append(timer() - start_aczp)
+    start = time.time()
+    T0 = time.time()
+    T = 0
+    K = 1
+    while T < 0.1:
+        t0 = time.time()
+        aczp(indeks_merge, K)
+        t1 = time.time()
+        aeuc(indeks_merge, K)
+        t2 = time.time()
 
-        start_aeuc = timer()
-        aeuc(indeks_merge, i)
-        timelist_aeuc.append(timer() - start_aeuc)
-        i += 1
+        ta = 0
+        te = 0
+        ta = ta + (t1 - t0)*1000
+        te = te + (t2 - t1)*1000
+        timelist_aczp.append(ta)
+        timelist_aeuc.append(te)
+
+        T = (t2 - T0) / 60
+        K += 1
+        # start_aczp = time.time()
+        # aczp(indeks_merge, i)
+        # timelist_aczp.append(time.time() - start_aczp)
+
+        # start_aeuc = time.time()
+        # aeuc(indeks_merge, i)
+        # timelist_aeuc.append(time.time() - start_aeuc)
+        # i += 1
     return timelist_aczp, timelist_aeuc
 
 
 def plot_timetable(timelist_aczp, timelist_aeuc):
     plt.subplot(2, 1, 1)
-    plt.plot(timelist_aczp, color='r')
-    plt.ylim(0,0.001)
+    plt.plot(timelist_aczp, color="r")
+    # plt.ylim(0, 0.001)
     plt.subplot(2, 1, 2)
-    plt.plot(timelist_aeuc, color='c')
-    plt.ylim(0,0.001)
+    plt.plot(timelist_aeuc, color="c")
+    # plt.ylim(0, 0.001)
     plt.show()
 
 
