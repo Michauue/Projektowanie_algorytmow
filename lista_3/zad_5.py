@@ -17,7 +17,7 @@ def f_fourier_transform():  # zastosowanie szybkiej transformaty Fouriera (FFT)
     f = signal_create()[1]
     fhat = np.fft.fft(f, n)
     PSD = fhat * np.conj(fhat) / n
-    frequency = (1 / (DT * n)) * np.arange(n)
+    frequency = (2 * np.pi) * (1 / (DT * n)) * np.arange(n)
     L = np.arange(1, np.floor(n / 2), dtype="int")
 
     return frequency, L, PSD, fhat
@@ -75,7 +75,7 @@ def ploting():  # generowanie wykresów
 # stałe używane do wykonania zadania
 
 DT = 0.001
-T = np.arange(0, 1, DT)
+T = np.arange(0, 2 * np.pi, DT)
 
 # uruchomienie programu
 
