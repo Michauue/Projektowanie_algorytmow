@@ -17,7 +17,7 @@ class robots():
         self.database['resolution'].append(parameter[4])
 
     def generate_robot(self):
-        id = ''.join(random.choice('024') for i in range(10))
+        id = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPRSQTUVWXYZ') for i in range(10))
         type = random.choice(['AUV','AFV','AGV'])
         mass = random.randint(50,2000)
         ran = random.randint(1,1000)
@@ -31,30 +31,24 @@ class robots():
         return description
 
 
-def table_creator(data):
-    head = ['id','type','mass','range','resolution']
-    for i in range(len(data)):
-        data[i] = [str(j) for j in data[i]]
-    draw_line(head)
-    for d in data:
-        draw_line(d)
+def takeType(parameter):
+    return parameter[1]
 
-def draw_line(data):
-    print('|', end='')
-    for i in data:
-        print(i, end=' ' * (11 - len(i)) + '| ')
-    print('\n', '-'*64)
+def takeMass(parameter):
+    return parameter[2]
 
-def save_data(data, file):
-    with open(file, 'wb') as fp:
-        pickle.dump(data, fp)
+def takeRange(parameter):
+    return parameter[3]
 
-def read_data(file):
-    with open(file, 'rb') as fp:
-        return pickle.load(fp)
+def takeResolution(parameter):
+    return parameter[4]
+
+def defaultSort():
+    return vector.sort(key=takeMass)
 
 
-
-
+random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
+defaultSort()
+print(vector)
