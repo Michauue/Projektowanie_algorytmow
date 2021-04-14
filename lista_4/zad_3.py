@@ -1,21 +1,18 @@
 import random
+import pickle
+
+
 
 class robots():
-    def __init__(self, parameter=None):
-        if parameter is None:
+    def __init__(self, par=None):
+        if par is None:
             self.database = {'id': [], 'type': [], 'mass': [], 'range': [], 'resolution': []}
         else:
-            self.database = {'id': [parameter[0]], 'type': [parameter[1]], 'mass': [parameter[2]], 'range': [parameter[3]], 'resolution': [parameter[4]]}
+            self.database = {'id': [par[0]], 'type': [par[1]], 'mass': [par[2]], 'range': [par[3]], 'resolution': [par[4]]}
 
-    def add_robot(self, parameter):
-        self.database['id'].append(parameter[0])
-        self.database['type'].append(parameter[1])
-        self.database['mass'].append(parameter[2])
-        self.database['range'].append(parameter[3])
-        self.database['resolution'].append(parameter[4])
 
     def generate_robot(self):
-        id = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPRSQTUVWXYZ') for i in range(10))
+        id = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPSTUWXYZ') for i in range(10))
         type = random.choice(['AUV','AFV','AGV'])
         mass = random.randint(50,2000)
         ran = random.randint(1,1000)
@@ -23,26 +20,79 @@ class robots():
         return [id, type, mass, ran, resolution]
 
     def generate_robots(self, M):
-        description = []
+        desc = []
         for m in range(M):
-            description.append(self.generate_robot())
-        return description
+            desc.append(self.generate_robot())
+        return desc
 
 
-def hashing(record):
-        global N
-        return record % N
+def hash_func(robot, H):
+    value = 0
+    str_value = 0
+    for i in robot:
+        if type(i) == int:
+            temp = 0
+            multiplier = 1
+            for digit in str(i):
+                temp += int(digit) * multiplier
+                multiplier += 1
+            value += temp
+        else:
+            str_value += len(i)
+    return value * str_value % H
 
-def hashSearch(vector, record, parameter):
-    tab = vector[parameter][hash(record)]
-    return record in tab
 
-temp = [12,123 ,14 ,-124,214,12,412, 4,12,532]
+def hash_vector(vector, H):
+    h_vector = [None]*H
+
+    for n in range(len(vector)):
+        h = hash_func(vector[n], H)
+        if h_vector[h] is None:
+            h_vector[h] = n
+        else:
+            check = 0
+            for i in range(h, len(h_vector)-h):
+                if h_vector[h+i] is None:
+                    h_vector[h+i] = n
+                    check = 1
+                    break
+
+            if check == 0:
+                for i in range(h):
+                    if h_vector[i] is None:
+                        h_vector[i] = n
+                        break
+
+    return h_vector
+
+
+def hash_find(search, vector, h_vector, H):
+    h = hash_func(search, H)
+    n = h_vector[h]
+
+    if search == vector[n]:
+        return True
+
+    else:
+        for i in range(n, len(vector)):
+            if search == vector[i]:
+                return True
+    return False
+
+
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(1000)
-N = 10
-print(temp[3])
-hashing(temp[3])
-print(temp[3])
-# print(vector)
+robot = robots_database.generate_robot()
+
+vector = robots_database.generate_robots(10)
+print(vector)
+
+print(hash_func(robot,7))
+
+h_vector = hash_vector(vector, int(len(vector)*1.5))
+print(h_vector)
+
+search1 = ['CMTSUFH9B7', 'AFV', 983, 310, 6]
+search2 = ['5FYFDG9KLP', 'AUV', 1813, 652, 10]
+print(hash_find(search1, vector, h_vector, len(h_vector)))
+print(hash_find(search2, vector, h_vector, len(h_vector)))
