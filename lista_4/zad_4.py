@@ -60,6 +60,8 @@ def defaultSort(parameter):
 
 def binarySort(vector,targets,parameter):
     
+    temp = []
+
     for target in targets:
 
         left = 0
@@ -74,19 +76,20 @@ def binarySort(vector,targets,parameter):
             print('Left:', left,'right:',right,'index:', index)
 
             if vector[index][parameter] == target:
-                return vector[index]
+                temp.append(vector[index])
+                break
             elif vector[index][parameter] < target:
                 left = index + 1
             else:
                 right = index
 
-    return None
+    return temp
 
 
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
-targets = [245, 420, 691, 239, 122]
+targets = [969, 420, 691, 239, 122]
 # targets = ['R343Z6J28W','R3Z7Z4J38W','R3Z7Z6J222','R3Z7Z6J28W']
 targets.sort()
 # parameters :
@@ -95,7 +98,7 @@ targets.sort()
 # 2 - Mass       <50,2000>
 # 3 - Range      <1,1000>
 # 4 - Resolution <1,30>
-parameter = 2
+parameter = 3
 defaultSort(parameter)
 print(binarySort(vector,targets,parameter))
 # print(vector)
