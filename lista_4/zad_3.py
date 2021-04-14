@@ -15,7 +15,7 @@ class robots():
         self.database['resolution'].append(parameter[4])
 
     def generate_robot(self):
-        id = ''.join(random.choice('024') for i in range(10))
+        id = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPRSQTUVWXYZ') for i in range(10))
         type = random.choice(['AUV','AFV','AGV'])
         mass = random.randint(50,2000)
         ran = random.randint(1,1000)
@@ -29,10 +29,20 @@ class robots():
         return description
 
 
+def hashing(record):
+        global N
+        return record % N
 
+def hashSearch(vector, record, parameter):
+    tab = vector[parameter][hash(record)]
+    return record in tab
 
-
+temp = [12,123 ,14 ,-124,214,12,412, 4,12,532]
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
-print(vector)
+N = 10
+print(temp[3])
+hashing(temp[3])
+print(temp[3])
+# print(vector)
