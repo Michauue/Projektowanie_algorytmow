@@ -1,6 +1,7 @@
 import random
 import pickle
 import copy
+import pandas as pd
 
 
 class robots():
@@ -60,15 +61,47 @@ def defaultSort(parameter):
         return vector.sort(key=takeResolution)
 
 
-def suppVectors(vector):
-    all_vectors = []
-    for i in range(5):
-        all_vectors.append([])
-    for i in range(5):
-        defaultSort(i)
-        x = vector.copy()
-        all_vectors[i] = x
-    return all_vectors
+# def suppVectors(vector):
+#     all_vectors = []
+#     for i in range(5):
+#         all_vectors.append([])
+#     for i in range(5):
+#         defaultSort(i)
+#         x = vector.copy()
+#         all_vectors[i] = x
+#     return all_vectors
+
+
+def alternative(vector):
+    df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
+    
+    df = df.sort_values('id')
+    x = df.index.tolist()
+    print('Id:',x)
+    id_vector = x
+
+    x = df.index.tolist()
+    df = df.sort_values('type')
+    print('Type:',x)
+    type_vector = x
+
+    x = df.index.tolist()
+    df = df.sort_values('mass')
+    print('Mass:',x)
+    mass_vector = x
+
+    x = df.index.tolist()
+    df = df.sort_values('range')
+    print('Range:',x)
+    range_vector = x
+
+    x = df.index.tolist()
+    df = df.sort_values('resolution')
+    print('Resolution:',x)
+    resolution_vector = x
+
+    return id_vector,type_vector,mass_vector,range_vector,resolution_vector
+
 
 random.seed(254279)
 robots_database = robots()
@@ -76,4 +109,6 @@ vector = robots_database.generate_robots(10)
 # parameter = 2
 # defaultSort(parameter)
 # print(generateAllVectors(vector))
-print(suppVectors(vector))
+# print(suppVectors(vector))
+alternative(vector)
+print(resolution_vector)
