@@ -31,6 +31,9 @@ class robots():
         return description
 
 
+def takeId(parameter):
+    return parameter[0]
+
 def takeType(parameter):
     return parameter[1]
 
@@ -43,12 +46,52 @@ def takeRange(parameter):
 def takeResolution(parameter):
     return parameter[4]
 
-def defaultSort():
-    return vector.sort(key=takeMass)
+def defaultSort(parameter):
+    if parameter == 0:
+        return vector.sort(key=takeId)
+    elif parameter == 1:
+        return vector.sort(key=takeType)
+    elif parameter == 2:
+        return vector.sort(key=takeMass)
+    elif parameter == 3:
+        return vector.sort(key=takeRange)
+    elif parameter == 4:
+        return vector.sort(key=takeResolution)
 
+def binarySort(vector,targets,parameter):
+    
+    for target in targets:
+
+        left = 0
+        right = len(vector)
+        index = 0
+        while left < right:
+            index = (left + right) // 2
+            if vector[index][parameter] == target:
+                return vector[index]
+            elif vector[index][parameter] < target:
+                left = index + 1
+            else:
+                right = index
+    return 'Brak zapisu w bazie'
+
+def start(targets):
+    for target in targets:
+        binarySort()
 
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
-defaultSort()
-print(vector)
+# target = 420
+targets = [241, 420, 581, 239, 122]
+targets.sort()
+# parameters :
+# 0 - Id
+# 1 - Type
+# 2 - Mass       <50,2000>
+# 3 - Range      <1,1000>
+# 4 - Resolution <1,30>
+parameter = 3
+defaultSort(parameter)
+print(binarySort(vector,targets,parameter))
+# print(vector)
