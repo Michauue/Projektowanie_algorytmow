@@ -61,20 +61,22 @@ def defaultSort(parameter):
         return vector.sort(key=takeResolution)
 
 
-# def suppVectors(vector):
-#     all_vectors = []
-#     for i in range(5):
-#         all_vectors.append([])
-#     for i in range(5):
-#         defaultSort(i)
-#         x = vector.copy()
-#         all_vectors[i] = x
-#     return all_vectors
+def suppVectors(vector):
+    all_vectors = []
+    for i in range(5):
+        all_vectors.append([])
+    for i in range(5):
+        defaultSort(i)
+        x = vector.copy()
+        all_vectors[i] = x
+    return all_vectors
 
 
 def alternative(vector):
     df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
-    
+    x = df.index.tolist()
+    print('Default:',x)
+
     df = df.sort_values('id')
     x = df.index.tolist()
     print('Id:',x)
@@ -105,10 +107,9 @@ def alternative(vector):
 
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(10)
+vector = robots_database.generate_robots(6)
 # parameter = 2
 # defaultSort(parameter)
 # print(generateAllVectors(vector))
 # print(suppVectors(vector))
 alternative(vector)
-print(resolution_vector)
