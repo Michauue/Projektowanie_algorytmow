@@ -65,25 +65,29 @@ def binarySort(vector,targets,parameter):
         left = 0
         right = len(vector)
         index = 0
+
+        print('\nSprawdzamy:',target,'\nLeft:', left,'right:',right,'index:', index)
+
         while left < right:
             index = (left + right) // 2
+
+            print('Left:', left,'right:',right,'index:', index)
+
             if vector[index][parameter] == target:
                 return vector[index]
             elif vector[index][parameter] < target:
                 left = index + 1
             else:
                 right = index
+
     return 'Brak zapisu w bazie'
 
-def start(targets):
-    for target in targets:
-        binarySort()
 
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
-# target = 420
-targets = [241, 420, 581, 239, 122]
+targets = [244, 420, 691, 239, 122]
+# targets = ['R343Z6J28W','R3Z7Z4J38W','R3Z7Z6J222','R3Z7Z6J28W']
 targets.sort()
 # parameters :
 # 0 - Id
@@ -91,7 +95,7 @@ targets.sort()
 # 2 - Mass       <50,2000>
 # 3 - Range      <1,1000>
 # 4 - Resolution <1,30>
-parameter = 3
+parameter = 2
 defaultSort(parameter)
 print(binarySort(vector,targets,parameter))
 # print(vector)
