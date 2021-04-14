@@ -58,38 +58,54 @@ def defaultSort(parameter):
     elif parameter == 4:
         return vector.sort(key=takeResolution)
 
-def binarySort(vector,targets,parameter):
+def tempo(vector,target,parameter,left,right,index):
+
+    print('\nSprawdzamy:',target)
+    while left <= index and index <= right:
+        index = (left + right) // 2
+
+        if left == index == right:
+            break
+        
+        print('Left:', left,'right:',right,'index:', index)
+
+        if vector[index][parameter] == target:
+            if vector[index] in temp1:
+                break
+            temp1.append(vector[index])
+            if left == index and index == right:
+                break
+            tempo(vector,target,parameter,left,index,(left + index)//2)
+            if left == index and index == right:
+                break
+            tempo(vector,target,parameter,index,right,(right + index)//2)
+        elif vector[index][parameter] < target:
+            left = index + 1
+            index += 1
+        else:
+            right = index
+        
+    return temp1
+
+def binarySort(vector,targets,parameter,left,right,index):
     
-    temp = []
+    global temp1
+    temp1 = []
 
     for target in targets:
+        x = tempo(vector,target,parameter,left,right,index)
+    return x
 
-        left = 0
-        right = len(vector)
-        index = 0
 
-        print('\nSprawdzamy:',target)
-
-        while left < right:
-            index = (left + right) // 2
-
-            print('Left:', left,'right:',right,'index:', index)
-
-            if vector[index][parameter] == target:
-                temp.append(vector[index])
-                break
-            elif vector[index][parameter] < target:
-                left = index + 1
-            else:
-                right = index
-
-    return temp
 
 
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(1000)
-targets = [969, 420, 691, 239, 122]
+left = 0
+right = len(vector)
+index = 1
+targets = [969,997]
 # targets = ['R343Z6J28W','R3Z7Z4J38W','R3Z7Z6J222','R3Z7Z6J28W']
 targets.sort()
 # parameters :
@@ -100,5 +116,5 @@ targets.sort()
 # 4 - Resolution <1,30>
 parameter = 3
 defaultSort(parameter)
-print(binarySort(vector,targets,parameter))
+print(binarySort(vector,targets,parameter,left,right,index))
 # print(vector)
