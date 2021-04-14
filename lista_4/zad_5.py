@@ -1,5 +1,6 @@
 import random
 import pickle
+import copy
 
 
 class robots():
@@ -57,3 +58,22 @@ def defaultSort(parameter):
         return vector.sort(key=takeRange)
     elif parameter == 4:
         return vector.sort(key=takeResolution)
+
+
+def suppVectors(vector):
+    all_vectors = []
+    for i in range(5):
+        all_vectors.append([])
+    for i in range(5):
+        defaultSort(i)
+        x = vector.copy()
+        all_vectors[i] = x
+    return all_vectors
+
+random.seed(254279)
+robots_database = robots()
+vector = robots_database.generate_robots(10)
+# parameter = 2
+# defaultSort(parameter)
+# print(generateAllVectors(vector))
+print(suppVectors(vector))
