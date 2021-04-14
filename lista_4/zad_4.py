@@ -73,6 +73,7 @@ def tempo(vector,target,parameter,left,right,index):
             if vector[index] in temp1:
                 break
             temp1.append(vector[index])
+            temp2.append(index)
             if left == index and index == right:
                 break
             tempo(vector,target,parameter,left,index,(left + index)//2)
@@ -85,15 +86,18 @@ def tempo(vector,target,parameter,left,right,index):
         else:
             right = index
         
-    return temp1
+    return temp2
 
 def binarySort(vector,targets,parameter,left,right,index):
     
     global temp1
+    global temp2
     temp1 = []
+    temp2 = []
 
     for target in targets:
         x = tempo(vector,target,parameter,left,right,index)
+        x.sort()
     return x
 
 
@@ -105,7 +109,11 @@ vector = robots_database.generate_robots(1000)
 left = 0
 right = len(vector)
 index = 1
-targets = [969,997]
+target_min = 420
+target_max = 430
+targets = []
+for i in range(target_min,target_max+1):
+    targets.append(i)
 # targets = ['R343Z6J28W','R3Z7Z4J38W','R3Z7Z6J222','R3Z7Z6J28W']
 targets.sort()
 # parameters :
