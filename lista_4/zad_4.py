@@ -58,7 +58,7 @@ def defaultSort(parameter):
     elif parameter == 4:
         return vector.sort(key=takeResolution)
 
-def tempo(vector,target,parameter,left,right,index):
+def binarySort(vector,target,parameter,left,right,index):
 
     print('\nSprawdzamy:',target)
     while left <= index and index <= right:
@@ -76,10 +76,10 @@ def tempo(vector,target,parameter,left,right,index):
             temp2.append(index)
             if left == index and index == right:
                 break
-            tempo(vector,target,parameter,left,index,(left + index)//2)
+            binarySort(vector,target,parameter,left,index,(left + index)//2)
             if left == index and index == right:
                 break
-            tempo(vector,target,parameter,index,right,(right + index)//2)
+            binarySort(vector,target,parameter,index,right,(right + index)//2)
         elif vector[index][parameter] < target:
             left = index + 1
             index += 1
@@ -88,7 +88,7 @@ def tempo(vector,target,parameter,left,right,index):
         
     return temp2
 
-def binarySort(vector,targets,parameter,left,right,index):
+def startingFunction(vector,targets,parameter,left,right,index):
     
     global temp1
     global temp2
@@ -96,11 +96,9 @@ def binarySort(vector,targets,parameter,left,right,index):
     temp2 = []
 
     for target in targets:
-        x = tempo(vector,target,parameter,left,right,index)
+        x = binarySort(vector,target,parameter,left,right,index)
         x.sort()
     return x
-
-
 
 
 random.seed(254279)
@@ -124,5 +122,5 @@ targets.sort()
 # 4 - Resolution <1,30>
 parameter = 3
 defaultSort(parameter)
-print(binarySort(vector,targets,parameter,left,right,index))
+print(startingFunction(vector,targets,parameter,left,right,index))
 # print(vector)
