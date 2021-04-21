@@ -33,46 +33,7 @@ class robots():
         return description
 
 
-def takeId(parameter):
-    return parameter[0]
-
-def takeType(parameter):
-    return parameter[1]
-
-def takeMass(parameter):
-    return parameter[2]
-
-def takeRange(parameter):
-    return parameter[3]
-
-def takeResolution(parameter):
-    return parameter[4]
-
-def defaultSort(parameter):
-    if parameter == 0:
-        return vector.sort(key=takeId)
-    elif parameter == 1:
-        return vector.sort(key=takeType)
-    elif parameter == 2:
-        return vector.sort(key=takeMass)
-    elif parameter == 3:
-        return vector.sort(key=takeRange)
-    elif parameter == 4:
-        return vector.sort(key=takeResolution)
-
-
 def suppVectors(vector):
-    all_vectors = []
-    for i in range(5):
-        all_vectors.append([])
-    for i in range(5):
-        defaultSort(i)
-        x = vector.copy()
-        all_vectors[i] = x
-    return all_vectors
-
-
-def alternative(vector):
     df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
     x = df.index.tolist()
     print('Default:',x)
@@ -108,8 +69,5 @@ def alternative(vector):
 random.seed(254279)
 robots_database = robots()
 vector = robots_database.generate_robots(6)
-# parameter = 2
-# defaultSort(parameter)
-# print(generateAllVectors(vector))
-# print(suppVectors(vector))
-alternative(vector)
+
+print(suppVectors(vector))
