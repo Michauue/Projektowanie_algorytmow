@@ -31,7 +31,9 @@ class robots():
         return description
 
 
-def takeId(parameter):
+#funkcje potrzebne do sortowania pierwotnej listy robotów zależnie od wybranego parametru
+
+def takeId(parameter):      
     return parameter[0]
 
 def takeType(parameter):
@@ -58,44 +60,51 @@ def defaultSort(parameter):
     elif parameter == 4:
         return vector.sort(key=takeResolution)
 
-def binarySort(vector,targets,parameter):
-    
-    for target in targets:
 
-        left = 0
-        right = len(vector)
-        index = 0
+# główna funkcja wyszukująca zadane wartości, podczas przygotowania zadania korzystałem w głównej mierze ze stronki: https://analityk.edu.pl/wyszukiwanie-binarne/
+
+def binarySort(vector,targets,parameter):       #na wejściu podajemy vector - lista robotów; targets - wartości jakich szukamy, parameter - parametr, który przeszukujemy
+    
+    for target in targets:           # przechodzimy po każdej wartości w liście szukanych wartości - od najmniejszej do największej
+
+        left = 0                        #początkowy lewy zakres
+        right = len(vector)             #początkowy prawy zakres
+        index = 0                       #początkowy index, czyli miejsce na którym jest szukana przez nas wartość 
 
         print('\nSprawdzamy:',target)
 
-        while left < right:
-            index = (left + right) // 2
+        while left < right:                 #pętla zapewnia działanie programu do momentu zrównania się lewego i prawego zakresu
+            index = (left + right) // 2     #definiujemy wartość index, którą będzeimy sprawdzać. Wartość ta dzieli listę na dwa zbiory (znak // użyty by nie było watości po przecinku)
 
             print('Left:', left,'right:',right,'index:', index)
 
-            if vector[index][parameter] == target:
-                return vector[index]
-            elif vector[index][parameter] < target:
-                left = index + 1
-            else:
-                right = index
+            if vector[index][parameter] == target:      # jeżeli parametr (po którym szukamy) robota o sprawdzanym indeksie jest taki sam jak sprawdzana wartość target 
+                return vector[index]                    # to kończymy działanie funkcji zwracając robota, który spełnił warunek
+            elif vector[index][parameter] < target:     # jeżeli lewa strona jest mniejsza od sprawdzanej wartości targetu
+                left = index + 1                        # to odrzucamy ten przedział, aktualizując lewy zakres na połowę pierwotnego
+            else:                                       # jeżeli lewa strona nie jest mniejsza od sprawdzanej wartości targetu
+                right = index                           # to odrzucamy prawą stronę
+
+                                                        # czyli początkowy przedział l:0, i:500, r:1000; nasza wartość znajduje się w indeksie 260, więc odrzucamy prawą stronę
+                                                        # i mamy wtedy przedział l:0, i:250, r:500, odrzucamy teraz analogicznie lewą stornę i mamy
+                                                        # l:250, i:375, r:500  i tak dalej i tak dalej
 
     return None
 
 
-random.seed(254279)
-robots_database = robots()
-vector = robots_database.generate_robots(1000)
-targets = [245, 420, 691, 239, 122]
+random.seed(254279)                                 # ustawienie seed'a żeby zawsze generowały się takie same roboty (pomagało w testowaniu)
+robots_database = robots()                          # utworzenie obiektu robot
+vector = robots_database.generate_robots(1000)      # wygenerowanie zadanej liczby robotów
+targets = [245, 420, 691, 239, 122]                 # wartości, których szukamy
 # targets = ['R343Z6J28W','R3Z7Z4J38W','R3Z7Z6J222','R3Z7Z6J28W']
-targets.sort()
+targets.sort()                                      # sortowanie wartości
 # parameters :
 # 0 - Id
 # 1 - Type
 # 2 - Mass       <50,2000>
 # 3 - Range      <1,1000>
-# 4 - Resolution <1,30>
-parameter = 2
-defaultSort(parameter)
-print(binarySort(vector,targets,parameter))
+# 4 - Resolution <1,30>     
+parameter = 2                                       # wybór parametru w którym szukamy wskazanych wartości
+defaultSort(parameter)                              # funkcja sortująca pierwotną listę robotów wg zadanego parametru
+print(binarySort(vector,targets,parameter))         # uruchomienie głównej funkcji i wyświetlenie wyników
 # print(vector)
