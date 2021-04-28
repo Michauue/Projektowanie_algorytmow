@@ -35,64 +35,108 @@ class robots():
         return description
 
 
-def quickSort(data):
+def swap(A, i, j):
+    if i != j:
+        A[i], A[j] = A[j], A[i]
 
-    less = []
-    equal = []
-    greater = []
+def bubblesort(A):
 
-    if len(data) > 1:
-        pivot = data[0]
-        for x in data:
-            if x < pivot:
-                less.append(x)
-            elif x == pivot:
-                equal.append(x)
-            elif x > pivot:
-                greater.append(x)
-        final = quickSort(less)+equal+quickSort(greater)
-        return final 
-    else:
-        return data
-
-
-def draw(quick):
-    tab_1 = []
-    print(len(quick))
-    for i in quick:
-        tab_1.append(i)
-        plt.plot(tab_1)
-        plt.draw()
-        plt.csl()
-    print(tab_1)
+    if len(A) == 1:
+        return
+    swapped = True
+    for i in range(len(A) - 1):
+        if not swapped:
+            break
+        swapped = False
+        for j in range(len(A) - 1 - i):
+            if A[j] > A[j + 1]:
+                swap(A, j, j + 1)
+                swapped = True
+            yield A
 
 
-def sillySort(data):
-    n = len(data)
-    i = 0
-    while i < n - 1:
-        if data[i] > data[i+1]:
-            temp = data[i]
-            data[i] = data[i+1]
-            data[i+1] = temp
-            i = 0
-            continue
-        i += 1
-    return data
+def quicksort(A, start, end):
+    if start >= end:
+        return
+    pivot = A[end]
+    pivotIdx = start
+    for i in range(start, end):
+        if A[i] < pivot:
+            swap(A, i, pivotIdx)
+            pivotIdx += 1
+        yield A
+    swap(A, end, pivotIdx)
+    yield A
+
+    yield from quicksort(A, start, pivotIdx - 1)
+    yield from quicksort(A, pivotIdx + 1, end)
+
+
+# def quickSort(data):
+
+#     less = []
+#     equal = []
+#     greater = []
+
+#     if len(data) > 1:
+#         pivot = data[0]
+#         for x in data:
+#             if x < pivot:
+#                 less.append(x)
+#             elif x == pivot:
+#                 equal.append(x)
+#             elif x > pivot:
+#                 greater.append(x)
+#         final = quickSort(less)+equal+quickSort(greater)
+#         return final 
+#     else:
+#         return data
+
+
+# def sillySort(data):
+#     n = len(data)
+#     i = 0
+#     while i < n - 1:
+#         if data[i] > data[i+1]:
+#             temp = data[i]
+#             data[i] = data[i+1]
+#             data[i+1] = temp
+#             i = 0
+#             continue
+#         i += 1
+#     return data
 
 
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(40)
+vector = robots_database.generate_robots(50)
 
-count = 0
 parameter = 'resolution'
 
 df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
 L = df[parameter].tolist()
 
-data_1 = L.copy()
-data_2 = L.copy()
+data = L.copy()
 print(L)
-print(quickSort(data_1))
-print(sillySort(data_2))
+generator_1 = quicksort(data,0,len(data)-1)
+# generator_2 = bubblesort(data_2)
+
+title_1 = 'quick'
+# title_2 = 'bubble'
+
+fig, ax = plt.subplots()
+ax.set_title(title_1)
+bar_rects = ax.bar(range(len(data)), data, align="edge")
+ax.set_xlim(0, len(data))
+text = ax.text(0.02, 0.95, "", transform=ax.transAxes)
+iteration = [0]
+def update_fig(A, rects, iteration):
+    for rect, val in zip(rects, A):
+        rect.set_height(val)
+    iteration[0] += 1
+    text.set_text("# of operations: {}".format(iteration[0]))
+
+anim = FuncAnimation(fig, func=update_fig,
+    fargs=(bar_rects, iteration), frames=generator_1, interval=1,
+    repeat=False)
+plt.show()
