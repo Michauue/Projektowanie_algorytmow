@@ -36,7 +36,7 @@ def counting_sort(L):
     temp_tab = []
     
     print("Tworzenie tablicy pomocniczej")
-    for i in range(0,len(L)):
+    for i in range(31):
         temp_tab.append(0);
     
     print("Start zliczania elementów")
@@ -46,7 +46,7 @@ def counting_sort(L):
     
     print("Układam posortowaną tablicę")
     k = 0
-    for a in range(0,len(L)):
+    for a in range(31):
         for c in range(0,temp_tab[a]):
             L[k] = a
             k = k + 1
@@ -55,7 +55,7 @@ def counting_sort(L):
 
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(100)
+vector = robots_database.generate_robots(80)
 
 df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
 L = df['resolution'].tolist()
