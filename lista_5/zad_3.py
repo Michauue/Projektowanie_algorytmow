@@ -74,42 +74,42 @@ def quicksort(A, start, end):
 
 # def quickSort(data):
 
-#     less = []
-#     equal = []
-#     greater = []
+    # less = []
+    # equal = []
+    # greater = []
 
-#     if len(data) > 1:
-#         pivot = data[0]
-#         for x in data:
-#             if x < pivot:
-#                 less.append(x)
-#             elif x == pivot:
-#                 equal.append(x)
-#             elif x > pivot:
-#                 greater.append(x)
-#         final = quickSort(less)+equal+quickSort(greater)
-#         return final 
-#     else:
-#         return data
+    # if len(data) > 1:
+    #     pivot = data[0]
+    #     for x in data:
+    #         if x < pivot:
+    #             less.append(x)
+    #         elif x == pivot:
+    #             equal.append(x)
+    #         elif x > pivot:
+    #             greater.append(x)
+    #     final = quickSort(less)+equal+quickSort(greater)
+    #     return final 
+    # else:
+    #     return data
 
 
 # def sillySort(data):
-#     n = len(data)
-#     i = 0
-#     while i < n - 1:
-#         if data[i] > data[i+1]:
-#             temp = data[i]
-#             data[i] = data[i+1]
-#             data[i+1] = temp
-#             i = 0
-#             continue
-#         i += 1
-#     return data
+    # n = len(data)
+    # i = 0
+    # while i < n - 1:
+    #     if data[i] > data[i+1]:
+    #         temp = data[i]
+    #         data[i] = data[i+1]
+    #         data[i+1] = temp
+    #         i = 0
+    #         continue
+    #     i += 1
+    # return data
 
 
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(50)
+vector = robots_database.generate_robots(80)
 
 parameter = 'resolution'
 

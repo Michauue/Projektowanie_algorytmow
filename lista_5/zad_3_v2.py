@@ -109,7 +109,7 @@ def quicksort(A, start, end):
 
 random.seed(254279)
 robots_database = robots()
-vector = robots_database.generate_robots(50)
+vector = robots_database.generate_robots(80)
 
 parameter = 'resolution'
 
