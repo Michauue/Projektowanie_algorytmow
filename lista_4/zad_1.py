@@ -45,46 +45,48 @@ class robots:
         return desc
 
 
-def lineraSearch(vector, category, value):
-    robot_id = None
-    for x in range(len(vector)):
-        if vector[x][category] in (value, int(value)):
-            robot_id = x
-            break
-    return robot_id
+def lineraSearch(vector, category, value):  # podajesz wektor, po jakim parametrze wyszukujemy i jaka wartość jest szukana
+    robot_id = None                         # ustawaiamy na none, bo jakby nie było nic do wyszukania, to zwróci None
+    for x in range(len(vector)):            # przechodzimy po wektorze 
+        if vector[x][category] in (value, int(value)):  #jeśli wektor o indeksie 'x' i zadanej kategorii jest w szukanych wartościach (on może byc albo stringiem, albo intem w zależności od parametru)
+            robot_id = x            # jak się zgadza to znaleźliśmy robota
+            break                   # więc przerywamy działanie fora
+    return robot_id                 # zwracamy id robota
 
 
-def lineraSearchVector(vector, search_value):
+def lineraSearchVector(vector, search_value):       #podajemy wektor i szukaną wartość (może byc to wektor wartości)
     robot_id = None
-    counter = 0
-    for x in range(len(vector)):
-        for y in range(len(search_value)):
-            if search_value[y] not in (None, vector[x][y]):
-                continue
-            counter += 1
-        if counter == len(search_value):
-            robot_id = x
-            break
+    counter = 0                                 #licznik potrzebny do 
+    for x in range(len(vector)):         
+        for y in range(len(search_value)):                   # przechodzmy do wektorze szukanych wartości
+            if search_value[y] not in (None, vector[x][y]):  # jeżeli szukana wartość nie jest Nonem, albo w badanym wektorem robotów
+                continue                                     # to przechodzimy do kolejnej iteracji
+            counter += 1                                     # jak znajdziemy tę wartość to counter wzrasta i przechodzimy do kolejnego parametru
+        if counter == len(search_value):                     # jeśli counter wynosi tyle co długość wektora szukanych wartości to
+            robot_id = x                                     # wyświetlamy robota o tym id
+            break   
         else:
-            counter = 0
+            counter = 0                                      # jeśli nie to zerujemy counter i przeszukujemy kolejny wektor
     return robot_id
 
 
 def advancedLineraSearchVector(vector, search_value):
-    c = 0
+    c = 0                                                   # licznik kontrolny do sprawdzania czy badany obiekt nie ma w sobie zagnieżdżonych list
     for y in range(len(search_value)):
-        if type(search_value[y]) == list:
-            c += 1
-            for z in range(len(search_value[y])):
-                robot_id = advancedLineraSearchVector(vector, vectorMerge(search_value, z, y))
-                if robot_id != None:
+        if type(search_value[y]) == list:                   #jeśli typ wartości to lista to 
+            c += 1                                          # zwiększamy licznik o 1
+            for z in range(len(search_value[y])):           # przechodzimy po elementach wektora z wartościami szukanymi (mogą być wektory w wektorach)
+                robot_id = advancedLineraSearchVector(vector, vectorMerge(search_value, z, y))  #rekurencyjnie wywołujemy funkcję póki nie pozbedziemy się wszsytkich zagnieżdżonych wektorów
+                if robot_id != None:                        # po znalezieniu pierwszego spełniającego warunki zwracamy go
                     return robot_id
-    if c == 0 and limitCheck(search_value):
-        robot_id = lineraSearchVector(vector, search_value)
+    if c == 0 and limitCheck(search_value):                 # jeśli nie ma zagnieżdżonych wektorów to 
+        robot_id = lineraSearchVector(vector, search_value) # wyszukujemy robota poprzednią funkcją i go zwracamy
         return robot_id
 
 
-def limitCheck(search_value):
+# funkcja sprawdza warunkami czy wpisane przez użytkownika wartości mieszczą się w zadanych przedziałach
+
+def limitCheck(search_value):   
     limits = {1: [None, "AUV", "AFV", "AGV"], 2: [50, 2000], 3: [1, 1000], 4: [1, 30]}
     if search_value[1] in limits[1]:
         if (
@@ -103,6 +105,11 @@ def limitCheck(search_value):
     print("Błędne dane", search_value)
     return False
 
+
+# vectorMerge zwraca wektor z wyciętą jedną wartością z wektoru w którym się znajdowała
+# lista = [2, 3, 4, [21, 32, 54], 43, [123, 213]]
+# chcemy wciąć 32, więc po wykonaniu tej funkcji wektor będzie wyglądał tak:
+# lista = [2, 3, 4, 32, 43, [123, 213]]
 
 def vectorMerge(search_value, z, y):
     return search_value[:y] + [search_value[y][z]] + search_value[y + 1 :]

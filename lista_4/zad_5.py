@@ -34,12 +34,12 @@ class robots():
 
 
 def suppVectors(vector):
-    df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])
-    x = df.index.tolist()
-    print('Default:',x)
+    df = pd.DataFrame(vector, columns=['id','type','mass','range','resolution'])  # dane wrzucam do dataframe za pomocą pandasa
+    x = df.index.tolist()       # deafultowa lista indeksów
+    print('Default:',x)             
 
-    df = df.sort_values('id')
-    x = df.index.tolist()
+    df = df.sort_values('id')   # sortuję po parametrze 'id'
+    x = df.index.tolist()       # gerenuję listę posorotwanych indeksów po danym parametrze
     print('Id:',x)
     id_vector = x
 
