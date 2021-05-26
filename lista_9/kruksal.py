@@ -15,7 +15,7 @@ class Graph:
             return i
         return self.find(parent, parent[i])
 
-    def apply_union(self, parent, rank, x, y):
+    def vertexUnion(self, parent, rank, x, y):
         xroot = self.find(parent, x)
         yroot = self.find(parent, y)
         if rank[xroot] < rank[yroot]:
@@ -45,9 +45,9 @@ class Graph:
             if x != y:
                 e = e + 1
                 result.append([u, v, w])
-                self.apply_union(parent, rank, x, y)
+                self.vertexUnion(parent, rank, x, y)
         for u, v, weight in result:
-            print("%d <-> %d - %d" % (u, v, weight))
+            print(u, '<->', v, '-', weight)
             time.sleep(0.5)
 
 random.seed(254279)
