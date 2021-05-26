@@ -17,12 +17,12 @@ while (e < V - 1):
         if selected[i]:
             for j in range(V):
                 if ((not selected[j]) and G[i][j]):  
-                    # jeżeli krawędx istnieje i nie jest już wybrana to działamy dalej sprawdzając minimalną odległość
+                    # jeżeli krawędź istnieje i nie jest już wybrana to działamy dalej sprawdzając minimalną odległość
                     if minimum > G[i][j]:
                         minimum = G[i][j]
                         x = i
                         y = j
-    print(str(x) + " <-> " + str(y) + " - " + str(G[x][y]))
+    print(str(x), "<->", str(y), "-", str(G[x][y]))
     time.sleep(0.5)
     selected[y] = True
     e += 1
