@@ -12,7 +12,7 @@ def knapsackProblem(items, weight):
                 temp[i, w] = temp[i - 1, w]
             else:
                 temp[i, w] = max(temp[i - 1, w], temp[i - 1, w - item_weight] + item_value)
-    print(temp)
+    # print(temp)
     return print('Programowanie dynamiczne:',temp[n, weight])
 
 def knapsackProblemGreedy(items, weight):
