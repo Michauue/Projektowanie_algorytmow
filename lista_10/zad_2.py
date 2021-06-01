@@ -28,14 +28,14 @@ def knapsackProblemGreedy(items, weight):
 
 
 #    (weight, value)
-items = [(2, 40),
-        (2, 160),
-        (3, 70),
-        (8, 230),
-        (1, 70),
-        (4, 25),
-        (5, 25),
-        (6, 180)]
+items = [(2, 4),
+        (2, 16),
+        (3, 7),
+        (8, 23),
+        (1, 7),
+        (4, 5),
+        (5, 6),
+        (6, 18)]
 
 
 knapsackProblem(items, 15)
